@@ -1,14 +1,17 @@
-<p style="color: green"><%= notice %></p>
+<% if notice.present? %>
+  <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg relative mb-6" role="alert">
+    <span class="block sm:inline"><%= notice %></span>
+  </div>
+<% end %>
 
-<h1>Pokemons</h1>
-
-<div id="pokemons">
-  <% @pokemons.each do |pokemon| %>
-    <%= render pokemon %>
-    <p>
-      <%= link_to "Show this pokemon", pokemon %>
-    </p>
-  <% end %>
+<div class="mb-6">
+  <p class="text-gray-600 text-lg">
+    You have <span class="font-semibold text-blue-600"><%= @pokemons.length %></span> Pokémon in your collection.
+  </p>
 </div>
 
-<%= link_to "New pokemon", new_pokemon_path %>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+  <% @pokemons.each do |pokemon| %>
+    <%= render pokemon %>
+  <% end %>
+</div>

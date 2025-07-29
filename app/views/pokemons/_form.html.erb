@@ -1,37 +1,54 @@
-<%= form_with(model: pokemon) do |form| %>
-  <% if pokemon.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(pokemon.errors.count, "error") %> prohibited this pokemon from being saved:</h2>
+<%# app/views/pokemons/_form.html.erb %>
 
-      <ul>
-        <% pokemon.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+<%= turbo_frame_tag "modal" do %>
+  <div class="p-8 bg-white rounded-lg shadow-xl max-w-md mx-auto">
+    <%= form_with(model: pokemon, class: "space-y-6") do |form| %>
+      <h2 class="text-xl font-semibold text-gray-900">
+        <%= pokemon.new_record? ? "Create a New Pokémon" : "Edit #{pokemon.name}" %>
+      </h2>
+
+      <% if pokemon.errors.any? %>
+        <div id="error_explanation" class="bg-red-50 text-red-700 p-4 rounded-lg">
+          <h2 class="font-bold"><%= pluralize(pokemon.errors.count, "error") %>:</h2>
+          <ul>
+            <% pokemon.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="space-y-2">
+        <%= form.label :name, "Name *", class: "text-sm font-medium text-gray-700" %>
+        <%= form.text_field :name, class: "w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "Enter Pokémon name" %>
+      </div>
+
+      <%# Campo Type com sua div organizadora %>
+      <div class="space-y-2">
+        <%= form.label :pokemon_type, "Type *", class: "text-sm font-medium text-gray-700" %>
+        <%= form.text_field :pokemon_type, class: "w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "e.g., Fire, Water" %>
+      </div>
+
+      <%# Campo Level com sua div organizadora %>
+      <div class="space-y-2">
+        <%= form.label :level, "Level *", class: "text-sm font-medium text-gray-700" %>
+        <%= form.number_field :level, class: "w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "1" %>
+      </div>
+
+      <%# Campo Image URL com sua div organizadora %>
+      <div class="space-y-2">
+        <%= form.label :image_url, class: "text-sm font-medium text-gray-700" do %>
+          Image URL <span class="text-gray-500 font-normal ml-1">(optional)</span>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+        <%= form.text_field :image_url, class: "w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "https://example.com/image.png" %>
+      </div>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
+      <%# ----- FIM DA CORREÇÃO ----- %>
 
-  <div>
-    <%= form.label :pokemon_type, style: "display: block" %>
-    <%= form.text_field :pokemon_type %>
-  </div>
-
-  <div>
-    <%= form.label :level, style: "display: block" %>
-    <%= form.number_field :level %>
-  </div>
-
-  <div>
-    <%= form.label :image_url, style: "display: block" %>
-    <%= form.text_field :image_url %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+      <div class="flex gap-3 pt-4">
+        <%= form.submit "Save Pokémon", class: "flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg cursor-pointer" %>
+        <%= link_to "Cancel", pokemons_path, data: { turbo_frame: "_top" }, class: "flex-1 text-center border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2.5 rounded-lg bg-transparent" %>
+      </div>
+    <% end %>
   </div>
 <% end %>

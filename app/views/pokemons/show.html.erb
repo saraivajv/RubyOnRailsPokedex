@@ -1,10 +1,46 @@
-<p style="color: green"><%= notice %></p>
+<header class="bg-white border-b border-gray-200 sticky top-16 z-10 shadow-sm -mx-8 px-8 mb-8">
+  <div class="flex justify-between items-center h-16">
+    <%= link_to pokemons_path, class: "flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+      Back to Pokédex
+    <% end %>
 
-<%= render @pokemon %>
+    <div class="flex gap-3">
+      <%= link_to edit_pokemon_path(@pokemon), class: "bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg flex items-center gap-2" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Edit
+      <% end %>
+      
+      <%= button_to @pokemon, method: :delete,
+          class: "bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-lg flex items-center gap-2",
+          form: { data: { turbo_confirm: "Are you sure you want to delete #{@pokemon.name}?" } } do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+        Delete
+      <% end %>
+    </div>
+  </div>
+</header>
 
-<div>
-  <%= link_to "Edit this pokemon", edit_pokemon_path(@pokemon) %> |
-  <%= link_to "Back to pokemons", pokemons_path %>
+<div class="text-center">
+  <div class="mb-8">
+    <div class="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden border-4 border-white shadow-xl">
+      <% if @pokemon.image_url.present? %>
+        <img src="<%= @pokemon.image_url %>" alt="<%= @pokemon.name %>" class="w-full h-full object-cover" />
+      <% else %>
+        <div class="text-6xl font-bold text-gray-400"><%= @pokemon.name.first.upcase %></div>
+      <% end %>
+    </div>
+  </div>
 
-  <%= button_to "Destroy this pokemon", @pokemon, method: :delete %>
+  <h1 class="text-5xl sm:text-6xl font-bold text-gray-900 mb-6"><%= @pokemon.name %></h1>
+
+  <div class="flex items-center justify-center gap-6 mb-8">
+    <span class="<%= tailwind_color_for_type(@pokemon.pokemon_type) %> text-white border-0 font-medium px-4 py-2 text-lg capitalize rounded-full">
+      <%= @pokemon.pokemon_type %>
+    </span>
+    <div class="text-center">
+      <div class="text-sm text-gray-500 mb-1">Level</div>
+      <div class="text-3xl font-bold text-gray-900"><%= @pokemon.level %></div>
+    </div>
+  </div>
 </div>

@@ -20,19 +20,18 @@ class PokemonsController < ApplicationController
   end
 
   # POST /pokemons or /pokemons.json
-  def create
-    @pokemon = Pokemon.new(pokemon_params)
+def create
+  @pokemon = Pokemon.new(pokemon_params)
 
-    respond_to do |format|
-      if @pokemon.save
-        format.html { redirect_to @pokemon, notice: "Pokemon was successfully created." }
-        format.json { render :show, status: :created, location: @pokemon }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @pokemon.errors, status: :unprocessable_entity }
-      end
+  respond_to do |format|
+    if @pokemon.save
+      format.turbo_stream
+      format.html { redirect_to pokemons_url, notice: "Pokémon was successfully created." }
+    else
+      format.html { render :new, status: :unprocessable_entity }
     end
   end
+end
 
   # PATCH/PUT /pokemons/1 or /pokemons/1.json
   def update

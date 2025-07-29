@@ -1,15 +1,26 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+turbo-frame[id="modal"] {
+  position: fixed; /* Fica fixo na tela, sobrepondo o resto */
+  top: 0;
+  left: 0;
+  width: 100vw;    /* Ocupa 100% da largura da tela */
+  height: 100vh;   /* Ocupa 100% da altura da tela */
+  z-index: 100;    /* Garante que fique na frente de tudo */
+  
+  /* Centraliza o conteúdo (o formulário) na tela */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Fundo escuro semi-transparente */
+  background-color: rgba(17, 24, 39, 0.6); /* bg-gray-900 com 60% de opacidade */
+  backdrop-filter: blur(4px);
+
+  /* Animação suave de entrada */
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Animação para o modal aparecer suavemente */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

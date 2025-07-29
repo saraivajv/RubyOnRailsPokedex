@@ -1,0 +1,8 @@
+<%# Adiciona o novo pokémon no início da lista com o id "pokemons" %>
+<%= turbo_stream.prepend "pokemons", partial: "pokemons/pokemon", locals: { pokemon: @pokemon } %>
+
+<%# Remove o modal (a turbo-frame com id "modal") da tela %>
+<%= turbo_stream.remove "modal" %>
+
+<%# Atualiza a contagem de pokémons %>
+<%= turbo_stream.update "pokemon-count", html: Pokemon.count %>

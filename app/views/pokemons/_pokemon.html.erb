@@ -1,22 +1,38 @@
-<div id="<%= dom_id pokemon %>">
-  <p>
-    <strong>Name:</strong>
-    <%= pokemon.name %>
-  </p>
+<%= link_to pokemon, class: "block cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.03] border hover:border-transparent hover:border-blue-300 bg-white rounded-lg group" do %>
+  <div class="p-6">
+    <div class="flex items-center gap-6">
 
-  <p>
-    <strong>Pokemon type:</strong>
-    <%= pokemon.pokemon_type %>
-  </p>
+      <%# Imagem Circular %>
+      <div class="relative">
+        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden border-2 border-gray-200 group-hover:border-blue-300 transition-colors">
+          <% if pokemon.image_url.present? && pokemon.image_url.start_with?('http') %>
+            <img src="<%= pokemon.image_url %>" alt="<%= pokemon.name %>" class="w-full h-full object-cover" />
+          <% else %>
+            <div class="text-2xl font-bold text-gray-400 group-hover:text-blue-500 transition-colors">
+              <%= pokemon.name.first.upcase %>
+            </div>
+          <% end %>
+        </div>
+      </div>
 
-  <p>
-    <strong>Level:</strong>
-    <%= pokemon.level %>
-  </p>
+      <%# Informações do Pokémon %>
+      <div class="flex-1 min-w-0">
+        <h3 class="text-xl font-bold text-gray-900 mb-2 truncate group-hover:text-blue-700 transition-colors">
+          <%= pokemon.name %>
+        </h3>
+        <span class="<%= tailwind_color_for_type(pokemon.pokemon_type) %> text-white border-0 font-medium px-3 py-1 text-sm capitalize transition-all duration-200 rounded-full">
+          <%= pokemon.pokemon_type %>
+        </span>
+      </div>
 
-  <p>
-    <strong>Image url:</strong>
-    <%= pokemon.image_url %>
-  </p>
+      <%# Nível do Pokémon %>
+      <div class="text-right">
+        <div class="text-sm text-gray-500 mb-1">Level</div>
+        <div class="text-2xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
+          <%= pokemon.level %>
+        </div>
+      </div>
 
-</div>
+    </div>
+  </div>
+<% end %>

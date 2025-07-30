@@ -34,17 +34,15 @@ def create
 end
 
   # PATCH/PUT /pokemons/1 or /pokemons/1.json
-  def update
-    respond_to do |format|
-      if @pokemon.update(pokemon_params)
-        format.html { redirect_to @pokemon, notice: "Pokemon was successfully updated." }
-        format.json { render :show, status: :ok, location: @pokemon }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @pokemon.errors, status: :unprocessable_entity }
-      end
+def update
+  respond_to do |format|
+    if @pokemon.update(pokemon_params)
+      format.html { redirect_to @pokemon, notice: "Pokémon was successfully updated." }
+    else
+      format.html { render :edit, status: :unprocessable_entity }
     end
   end
+end
 
   # DELETE /pokemons/1 or /pokemons/1.json
   def destroy

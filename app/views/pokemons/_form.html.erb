@@ -2,7 +2,7 @@
 
 <%= turbo_frame_tag "modal" do %>
   <div class="p-8 bg-white rounded-lg shadow-xl max-w-md mx-auto">
-    <%= form_with(model: pokemon, class: "space-y-6") do |form| %>
+    <%= form_with(model: pokemon, class: "space-y-6", data: { turbo_frame: "_top" }) do |form| %>
       <h2 class="text-xl font-semibold text-gray-900">
         <%= pokemon.new_record? ? "Create a New Pokémon" : "Edit #{pokemon.name}" %>
       </h2>
@@ -47,7 +47,9 @@
 
       <div class="flex gap-3 pt-4">
         <%= form.submit "Save Pokémon", class: "flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg cursor-pointer" %>
-        <%= link_to "Cancel", pokemons_path, data: { turbo_frame: "_top" }, class: "flex-1 text-center border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2.5 rounded-lg bg-transparent" %>
+        <% cancel_path = pokemon.persisted? ? pokemon_path(pokemon) : pokemons_path %>
+
+        <%= link_to "Cancel", cancel_path, data: { turbo_frame: "_top" }, class: "flex-1 text-center border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2.5 rounded-lg bg-transparent" %>
       </div>
     <% end %>
   </div>

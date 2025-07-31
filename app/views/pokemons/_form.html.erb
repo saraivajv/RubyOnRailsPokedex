@@ -35,16 +35,6 @@
         <%= form.number_field :level, class: "w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "1" %>
       </div>
 
-      <%# Campo Image URL com sua div organizadora %>
-      <div class="space-y-2">
-        <%= form.label :image_url, class: "text-sm font-medium text-gray-700" do %>
-          Image URL <span class="text-gray-500 font-normal ml-1">(optional)</span>
-        <% end %>
-        <%= form.text_field :image_url, class: "w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "https://example.com/image.png" %>
-      </div>
-
-      <%# ----- FIM DA CORREÇÃO ----- %>
-
       <div class="flex gap-3 pt-4">
         <%= form.submit "Save Pokémon", class: "flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg cursor-pointer" %>
         <% cancel_path = pokemon.persisted? ? pokemon_path(pokemon) : pokemons_path %>
